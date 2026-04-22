@@ -4,25 +4,25 @@
 # Integer & Float /  int/float
 #####################################################################################
 
-# print(type(30))
-# print(type(30.5))
+print(type(30))
+print(type(30.5))
 
-# print(10 + 5)
-# print(10 - 5)
-# print(10 * 5)
-#
-# print(10.5 + 5)
-# print(10.6 - 5.1)
-# print(10.1 * 5)
+print(10 + 5)
+print(10 - 5)
+print(10 * 5)
 
-# print(10 / 5)
+print(10.5 + 5)
+print(10.6 - 5.1)
+print(10.1 * 5)
 
-# print(10 / 3)
-# print(10 // 3) # = 3 (1)
-# print(10 % 3)
+print(10 / 5)
+
+print(10 / 3)
+print(10 // 3) # = 3 (1)
+print(10 % 3)
 
 
-# print(10.2 ** 2)
+print(10.2 ** 2)
 
 
 # PEMDAS
@@ -31,18 +31,18 @@
 # E - Exponents - ახარისხება
 # MD - Multiplications and Divisions - გაყოფა/გამრავლება
 # AS - Additions and Substraction - მიმატება/გამოკლება
-
+#
 # a**2 * x + b * x + c
-
+#
 # -b / (2 * a)
 
 
 
 
-# print(0.1 + 0.2) # 0.30000000000000004
-# print(5 // 2) # 2.5 = 2
-# print(-5 // 2) # -2.5 = -3
-# print('-5 % 2 =', -5 % 2)
+print(0.1 + 0.2) # 0.30000000000000004
+print(5 // 2) # 2.5 = 2
+print(-5 // 2) # -2.5 = -3
+print('-5 % 2 =', -5 % 2)
 
 
 
@@ -51,29 +51,29 @@
 #####################################################################################
 
 
-# print('Irakli Tabatadze', "Irakli Tabatadze")
+print('Irakli Tabatadze', "Irakli Tabatadze")
 
 
 #####################################################################################
 # Boolean / bool
 #####################################################################################
 
-# print(True)
-# print(False)
+print(True)
+print(False)
 
-# ==
-# !=
-# >
-# <
-# >=
-# <=
+==
+!=
+>
+<
+>=
+<=
 
-# print(5 == 5)
-# print(5 != 5)
-# print(5 > 5)
-# print(5 < 5)
-# print(5 >= 5)
-# print(5 <= 5)
+print(5 == 5)
+print(5 != 5)
+print(5 > 5)
+print(5 < 5)
+print(5 >= 5)
+print(5 <= 5)
 
 
 
@@ -81,45 +81,45 @@
 # NoneType
 #####################################################################################
 
-# print(type(None))
+print(type(None))
 
 
 #####################################################################################
 # Variables
 #####################################################################################
 
-# num1 = 5
-# num2 = 2
-#
-# print(num1 + num2)
-# print(num1 - num2)
-# print(num1 * num2)
-# print(num1 / num2)
+num1 = 5
+num2 = 2
+
+print(num1 + num2)
+print(num1 - num2)
+print(num1 * num2)
+print(num1 / num2)
 
 
 
-# count = 3
-# print(count)
+count = 3
+print(count)
 
-# count = count - 1
-# count -= 1
-# print(count)
+count = count - 1
+count -= 1
+print(count)
 
 
 #####################################################################################
 # Cast
 #####################################################################################
 
-# num1 = int(input('Input first number: '))
-# num2 = int(input('Input second number: '))
+num1 = int(input('Input first number: '))
+num2 = int(input('Input second number: '))
 
-# num1 = int(num1)
-# num2 = int(num2)
+num1 = int(num1)
+num2 = int(num2)
 
-# print('num1: ', type(num1))
-# print('num2: ', type(num2))
-#
-# print(num1 + num2)
+print('num1: ', type(num1))
+print('num2: ', type(num2))
+
+print(num1 + num2)
 
 # არ შეიძლება
 # 1num
