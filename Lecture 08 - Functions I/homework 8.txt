@@ -1,0 +1,39 @@
+1.დაწერე ფუნქცია find_min_max, რომელიც მიიღებს ნებისმიერი რაოდენობის რიცხვებს (*args) და დააბრუნებს:
+
+ყველაზე პატარა რიცხვს
+ყველაზე დიდ რიცხვს
+
+2.დაწერე ფუნქცია calculate, რომელიც:
+
+იღებს *args
+იღებს keyword არგუმენტს operation
+
+operation შეიძლება იყოს:
+
+"sum"  → ჯამი
+"max"  → მაქსიმუმი
+"min"  → მინიმუმი
+"mult" → ნამრავლი
+
+
+3.დაწერე ფუნქცია format_user, რომელიც იღებს:
+
+first_name
+last_name
+**kwargs
+
+და აბრუნებს სტრინგს ამ ფორმატში:
+
+format_user("John", "Doe", age=25, job="Developer")
+John Doe | age: 25, job: Developer
+
+
+
+4. დაწერე ფუნქცია safe_divide(a, b), რომელიც:
+
+თუ b == 0 → აბრუნებს "Cannot divide by zero"
+სხვა შემთხვევაში აბრუნებს:
+მთელ ნაწილს და ნაშთს, ორივეს ერთად
+
+safe_divide(10, 2)  # (5, 0)
+safe_divide(10, 0)  # Cannot divide by zero
