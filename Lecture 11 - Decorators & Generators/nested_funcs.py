@@ -1,23 +1,23 @@
-#
-# x = 'Global Variable'
-#
-# def outer():
-#     x = 'Enclosing Variable'
-#     print(f'{x} is outer')
-#
-#     def inner():
-#         # x = 'Local Variable'
-#         # global x
-#         nonlocal x
-#         x = x + 'Hello'
-#         print(f'{x} is inner')
-#         return 'inner'
-#
-#     return inner()
-#
-#
-# print(outer())
-# print(x)
+
+x = 'Global Variable'
+
+def outer():
+    x = 'Enclosing Variable'
+    print(f'{x} is outer')
+
+    def inner():
+        # x = 'Local Variable'
+        # global x
+        nonlocal x
+        x = x + 'Hello'
+        print(f'{x} is inner')
+        return 'inner'
+
+    return inner()
+
+
+print(outer())
+print(x)
 
 
 
