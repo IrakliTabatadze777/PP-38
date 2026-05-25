@@ -1,32 +1,34 @@
+########################################################################################################
+# Encapsulation
+########################################################################################################
+
+class BankAccount:
+    def __init__(self, owner, balance):
+        self.owner = owner
+        self._balance = balance
+        self.__bank_name = 'Step'
+
+    @property
+    def balance(self):
+        return self._balance
+
+    @balance.setter
+    def balance(self, value):
+        self._balance = value
+
+    @balance.deleter
+    def balance(self):
+        del self._balance
 
 
-# class BankAccount:
-#     def __init__(self, owner, balance):
-#         self.owner = owner
-#         self._balance = balance
-#         self.__bank_name = 'Step'
-#
-#     @property
-#     def balance(self):
-#         return self._balance
-#
-#     @balance.setter
-#     def balance(self, value):
-#         self._balance = value
-#
-#     @balance.deleter
-#     def balance(self):
-#         del self._balance
+    def get_owner(self):
+        return self.owner
 
+    def get_balance(self):
+        return self._balance
 
-    # def get_owner(self):
-    #     return self.owner
-    #
-    # def get_balance(self):
-    #     return self._balance
-    #
-    # def get_bank_name(self):
-    #     return self.__bank_name
+    def get_bank_name(self):
+        return self.__bank_name
 
 
 # account = BankAccount('John Doe', 10000)
@@ -47,36 +49,38 @@
 
 
 
+########################################################################################################
+# Inheritance
+########################################################################################################
+
+class Animal:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def eat(self):
+        print(f"{self.name} is eating.")
+
+    def __str__(self):
+        return f"{self.name} (Age: {self.age})"
 
 
-# class Animal:
-#     def __init__(self, name, age):
-#         self.name = name
-#         self.age = age
-#
-#     def eat(self):
-#         print(f"{self.name} is eating.")
-#
-#     def __str__(self):
-#         return f"{self.name} (Age: {self.age})"
-#
-#
-# class Dog(Animal):
-#     def __init__(self, name, age, color):
-#         super().__init__(name, age)
-#         self.color = color
-#
-#     def bark(self):
-#         return f"{self.name} is barking."
-#
-#
-# class Cat(Animal):
-#     def __init__(self, name, age, color):
-#         super().__init__(name, age)
-#         self.color = color
-#
-#     def meow(self):
-#         return f"{self.name} is meowing."
+class Dog(Animal):
+    def __init__(self, name, age, color):
+        super().__init__(name, age)
+        self.color = color
+
+    def bark(self):
+        return f"{self.name} is barking."
+
+
+class Cat(Animal):
+    def __init__(self, name, age, color):
+        super().__init__(name, age)
+        self.color = color
+
+    def meow(self):
+        return f"{self.name} is meowing."
 #
 #
 #
@@ -91,7 +95,9 @@
 
 
 
-
+########################################################################################################
+# Polymorphism
+########################################################################################################
 
 class Shape:
     def area(self):
