@@ -19,7 +19,7 @@ pip install requests pydantic
 
 ## JSON ფაილები
 
-### `recipes.json` — საწყისი მონაცემები (წინასწარ მოცემული)
+### `recipes.json` — საწყისი მონაცემები
 
 ```json
 [
