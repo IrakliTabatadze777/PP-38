@@ -29,9 +29,6 @@ pip install requests pydantic
 ]
 ```
 
-### `updated_recipes.json` — განახლებული მონაცემები (შენ უნდა შექმნა)
-
-
 ---
 
 ## დავალების აღწერა
