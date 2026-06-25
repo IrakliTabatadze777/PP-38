@@ -1,0 +1,39 @@
+body {
+    background-color: rgb(141, 134, 134);
+    /* background-color: #ff0000; */
+}
+
+h1 {
+    color: green;
+    /* background-color: aqua; */
+}
+
+h2 {
+    color: blueviolet;
+}
+
+
+/* p {
+    background-color: blue;
+} */
+
+p {
+    margin: 20px;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+#first_p {
+    background-color: blue;
+}
+
+
+#second_p {
+    background-color: aqua;
+}
+
+
+.main_div {
+    background-color: green;
+    display: flex;
+}
