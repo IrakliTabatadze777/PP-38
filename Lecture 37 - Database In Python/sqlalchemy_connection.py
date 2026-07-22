@@ -47,7 +47,7 @@ class Base(DeclarativeBase):
 # ==========================================================
 
 # Student კლასი წარმოადგენს students ცხრილს.
-class Student:
+class Student(Base):
 
     # ბაზაში არსებული ცხრილის სახელი
     __tablename__ = "students"
