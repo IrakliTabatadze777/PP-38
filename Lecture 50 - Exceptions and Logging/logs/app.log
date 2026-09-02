@@ -1,0 +1,43 @@
+[WARNING | 2026-09-02 21:03:24 | passlib.handlers.bcrypt] (trapped) error reading bcrypt version
+Traceback (most recent call last):
+  File "/Users/macintoshi/PycharmProjects/FastAPIProject/.venv/lib/python3.12/site-packages/passlib/handlers/bcrypt.py", line 620, in _load_backend_mixin
+    version = _bcrypt.__about__.__version__
+              ^^^^^^^^^^^^^^^^^
+AttributeError: module 'bcrypt' has no attribute '__about__'
+[INFO | 2026-09-02 21:03:36 | core.dependencies] Started get_current_user function
+[INFO | 2026-09-02 21:05:54 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:05:54 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:04 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:04 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:04 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:04 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:04 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:04 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:04 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:04 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:05 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:05 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:05 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:05 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:05 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:05 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:05 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:05 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:05 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:05 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:05 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:05 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:05 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:05 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:05 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:05 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:06 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:06 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:06 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:06 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:06 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:06 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:06 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:06 | core.dependencies] Need access token
+[INFO | 2026-09-02 21:07:06 | core.dependencies] Started get_current_user function
+[ERROR | 2026-09-02 21:07:06 | core.dependencies] Need access token
