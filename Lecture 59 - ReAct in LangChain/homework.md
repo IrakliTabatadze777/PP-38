@@ -48,7 +48,7 @@ def get_book_location(book_title: str) -> str:
 
 მოთხოვნები:
 - გამოიყენეთ `create_react_agent` + `AgentExecutor`
-- Prompt-ი გაიწევეთ LangSmith-იდან (`hwchase17/react`) ან დაწერეთ თქვენი
+- Prompt-ი გადმოწერეთ LangSmith-იდან (`hwchase17/react`)
 - დააყენეთ `verbose=True` და `return_intermediate_steps=True`
 - აგენტი შეზღუდეთ მაქსიმუმ 5 იტერაციით
 - დაბეჭდეთ intermediate steps და საბოლოო პასუხი
