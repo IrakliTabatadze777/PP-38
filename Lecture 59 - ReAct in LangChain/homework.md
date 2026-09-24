@@ -46,8 +46,6 @@ def get_book_location(book_title: str) -> str:
 
 ### ნაწილი 2 – სტანდარტული ReAct იმპლემენტაცია
 
-შექმენით ფაილი სახელად `react_standard.py`.
-
 მოთხოვნები:
 - გამოიყენეთ `create_react_agent` + `AgentExecutor`
 - Prompt-ი გაიწევეთ LangSmith-იდან (`hwchase17/react`) ან დაწერეთ თქვენი
