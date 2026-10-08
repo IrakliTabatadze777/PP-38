@@ -5,6 +5,7 @@ from langchain_core.exceptions import OutputParserException
 from langchain_core.tools import tool
 from langchain_core.messages import ToolMessage, BaseMessage, HumanMessage
 from langgraph.graph.message import add_messages
+from langgraph.checkpoint.memory import MemorySaver
 from pydantic import BaseModel, Field, ValidationError
 from typing import Literal, TypedDict, Annotated
 
@@ -292,7 +293,7 @@ def build_tool_graph():
 
 
 class SupervisorDecision(BaseModel):
-    next_agent: Literal['tool_agent', 'plan_agent']
+    next_agent: Literal['tool_agent', 'plan_agent', 'finish']
     reasoning: str
 
 
@@ -303,6 +304,7 @@ class SupervisorState(TypedDict):
     completed_agents: list[str]
     tool_agent_result: str
     plan_agent_result: dict
+    final_note: str
 
 
 def run_tool_graph(state: SupervisorState):
@@ -369,8 +371,8 @@ def supervisor_node(state: SupervisorState):
     print(f'Next Agent: {next_agent}')
     print(f'Reasoning: {reasoning}')
 
-    if next_agent in state['completed_agents']:
-        next_agent = END
+    if next_agent in state['completed_agents'] or next_agent == 'finish':
+        next_agent = 'finish'
     return {'next_agent': next_agent, 'reasoning': reasoning}
 
 
@@ -389,7 +391,7 @@ def build_supervisor_graph():
     builder.add_conditional_edges(
         'supervisor',
         route_supervisor,
-        {'tool_agent': 'tool_agent', 'plan_agent': 'plan_agent', END: END},
+        {'tool_agent': 'tool_agent', 'plan_agent': 'plan_agent', 'finish': END},
     )
 
     builder.add_edge('tool_agent', 'supervisor')
@@ -416,7 +418,7 @@ def run_supervisor_agent():
     print(result['tool_agent_result'])
     print(result['plan_agent_result'])
 
-run_supervisor_agent()
+# run_supervisor_agent()
 
 
 # def visualize_graph():
@@ -427,3 +429,113 @@ run_supervisor_agent()
 #         f.write(png_bytes)
 #
 # visualize_graph()
+
+
+
+
+
+###############################################################
+# HITL - Human In The Loop
+###############################################################
+
+
+def finalize_plan(state: SupervisorState):
+    return {'final_note': 'Plan Finalized'}
+
+
+
+def build_hitl_graph():
+    builder = StateGraph(SupervisorState)
+
+    builder.add_node('supervisor', supervisor_node)
+    builder.add_node('tool_agent', run_tool_graph)
+    builder.add_node('plan_agent', run_plan_graph_in_supervisor)
+    builder.add_node('finalize_plan', finalize_plan)
+
+    builder.add_edge(START, 'supervisor')
+    builder.add_conditional_edges(
+        'supervisor',
+        route_supervisor,
+        {'tool_agent': 'tool_agent', 'plan_agent': 'plan_agent', 'finish': END},
+    )
+
+    builder.add_edge('tool_agent', 'supervisor')
+
+    builder.add_edge('plan_agent', 'finalize_plan')
+    builder.add_edge('finalize_plan', 'supervisor')
+
+
+    return builder.compile(checkpointer=MemorySaver(), interrupt_before=['finalize_plan'])
+
+
+
+def hitl_pattern():
+    graph = build_hitl_graph()
+    config = {'recursion_limit': 20, 'configurable': {'thread_id': 'hitl-session-1'}}
+
+    user_request = 'I\'m planning a trip to Tbilisi, tell me about the weather and give me budget plan'
+    result = graph.invoke(
+        {
+            # 'user_request': user_request,
+            'user_request': 'What is the weather in Tbilisi?',
+            'next_agent': '',
+            'reasoning': '',
+            'completed_agents': [],
+            'tool_agent_result': '',
+            'plan_agent_result': {},
+            'final_note': ''
+        },
+        config=config
+    )
+
+
+    if not graph.get_state(config).next:
+        print('--- No Pause Happened ---')
+        print('Supervisor finished without human interruption')
+        print(f'Tool Agent Result: {result['tool_agent_result']}')
+        print(f'Plan Agent Result: {result['plan_agent_result']}')
+        return
+
+
+    print('--- Pause Happened ---')
+    print(f'Tool Agent Result: {result['tool_agent_result']}')
+    print(f'Plan Agent Result: {result['plan_agent_result']}')
+
+
+    approve = input('Approve this budget as is? (y/n): ')
+
+    if approve.strip().lower() != 'y':
+        new_budget = float(input('Enter new budget in USD: '))
+        current_state = graph.get_state(config)
+
+
+        plan_graph = build_plan_graph()
+        new_plan = plan_graph.invoke(
+            {
+                'user_request': f'{current_state.values['user_request']}'
+                                f'The daily budget in USD must be {new_budget}'
+                                f'Adjust the packing list and duration days to fit it',
+                'error_message': '',
+                'attempts': 0,
+                'plan': {}
+            }
+        )
+
+        final_plan = new_plan['plan']
+
+
+        graph.update_state(
+            config,
+            {'plan_agent_result': {**final_plan, 'daily_budget_usd': new_budget}}
+        )
+
+
+    final_result = graph.invoke(None, config=config)
+
+    print(f'Tool Agent Result: {final_result['tool_agent_result']}')
+    print(f'Plan Agent Result: {final_result['plan_agent_result']}')
+
+
+    return
+
+hitl_pattern()
