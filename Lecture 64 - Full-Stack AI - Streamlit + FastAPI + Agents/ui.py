@@ -126,8 +126,8 @@ if result:
     with st.chat_message("user"):
         st.markdown(result["user_request"])
     with st.chat_message("assistant"):
-        # if result["general_answer"]:
-        #     st.markdown(result["general_answer"])
+        if result["general_answer"]:
+            st.markdown(result["general_answer"])
         if result["tool_result"]:
             st.markdown(result["tool_result"])
         if result["plan"]:

@@ -190,7 +190,7 @@ def build_tool_graph():
 
 
 class SupervisorDecision(BaseModel):
-    next_agent: Literal['tool_agent', 'plan_agent', 'finish']
+    next_agent: Literal['general_agent', 'tool_agent', 'plan_agent', 'finish']
     reasoning: str
 
 
@@ -201,6 +201,7 @@ class SupervisorState(TypedDict):
     completed_agents: list[str]
     tool_agent_result: str
     plan_agent_result: dict
+    general_agent_result: str
     final_note: str
 
 
@@ -255,7 +256,8 @@ def supervisor_node(state: SupervisorState):
     decision = supervisor_model.invoke(
         'you are coordinating a trip-planning system with two specialist agent\n'
         '- tool_agent: handles weather and sightseens questions\n'
-        '- plan_agent: produces a structured trip budget and packing list\n\n'
+        '- plan_agent: produces a structured trip budget and packing list\n'
+        '- general_agent: answers general questions\n\n'
         f'User request: {state["user_request"]}\n'
         f'Work completed so far: {state["completed_agents"]}\n\n'
         f'Decide which agent should act next'
@@ -280,12 +282,21 @@ def route_supervisor(state: SupervisorState):
 def finalize_plan(state: SupervisorState):
     return {'final_note': 'Plan Finalized'}
 
+def run_general_agent(state: SupervisorState):
+    response = make_model().invoke(state['user_request'])
+
+    return {
+        'general_agent_result': response.text,
+        'completed_agents': state['completed_agents'] + ['general_agent'],
+    }
+
 
 def build_supervisor_graph(checkpointer):
 
     builder = StateGraph(SupervisorState)
 
     builder.add_node('supervisor', supervisor_node)
+    builder.add_node('general_agent', run_general_agent)
     builder.add_node('tool_agent', run_tool_graph)
     builder.add_node('plan_agent', run_plan_graph_in_supervisor)
     builder.add_node('finalize_plan', finalize_plan)
@@ -294,9 +305,10 @@ def build_supervisor_graph(checkpointer):
     builder.add_conditional_edges(
         'supervisor',
         route_supervisor,
-        {'tool_agent': 'tool_agent', 'plan_agent': 'plan_agent', 'finish': END},
+        {'general_agent': 'general_agent', 'tool_agent': 'tool_agent', 'plan_agent': 'plan_agent', 'finish': END},
     )
 
+    builder.add_edge('general_agent', 'supervisor')
     builder.add_edge('tool_agent', 'supervisor')
 
     builder.add_edge('plan_agent', 'finalize_plan')

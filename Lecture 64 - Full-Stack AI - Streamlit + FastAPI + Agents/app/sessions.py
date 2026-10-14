@@ -19,6 +19,7 @@ def describe(snapshot):
         user_request=values['user_request'],
         tool_result=values['tool_agent_result'],
         plan=values['plan_agent_result'],
+        general_answer=values['general_agent_result'],
         final_note=values['final_note']
     )
 

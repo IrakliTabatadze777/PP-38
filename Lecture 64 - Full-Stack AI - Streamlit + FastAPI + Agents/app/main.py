@@ -52,6 +52,7 @@ def new_request_input(message: str):
         'completed_agents': [],
         'tool_agent_result': '',
         'plan_agent_result': {},
+        'general_agent_result': '',
         'final_note': '',
     }
 

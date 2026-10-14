@@ -10,6 +10,7 @@ class AgentResponse(BaseModel):
     user_request: str
     tool_result: str
     plan: dict
+    general_answer: str
     final_note: str
 
 class Decision(BaseModel):
