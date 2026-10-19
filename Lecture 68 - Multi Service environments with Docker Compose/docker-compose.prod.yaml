@@ -1,0 +1,7 @@
+services:
+  db:
+    restart: unless-stopped
+  api:
+    restart: unless-stopped
+  ui:
+    restart: unless-stopped
