@@ -1,0 +1,51 @@
+services:
+  db:
+    container_name: support-db
+    image: pgvector/pgvector:pg18
+    environment:
+      POSTGRES_USER: support
+      POSTGRES_PASSWORD: 123123
+      POSTGRES_DB: support
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql
+      - ./docker/initdb:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U support -d support"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  app:
+    container_name: support-backend
+    build: ./backend
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql+psycopg://support:123123@db:5432/support
+      CHECKPOINT_DB_URL: postgresql://support:123123@db:5432/support
+      LLM_MODEL: ${LLM_MODEL:-gemini-3.6-flash}
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-gemini-embedding-2}
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      JWT_SECRET: ${JWT_SECRET:-dev-only-jwt-secret-change-me-0123456789}
+      JWT_ACCESS_EXPIRE_MINUTES: ${JWT_ACCESS_EXPIRE_MINUTES:-15}
+      JWT_REFRESH_EXPIRE_DAYS: ${JWT_REFRESH_EXPIRE_DAYS:-7}
+      MAX_AGENT_STEPS: ${MAX_AGENT_STEPS:-8}
+      RETRIEVAL_MIN_SCORE: ${RETRIEVAL_MIN_SCORE:-0.69}
+
+  ui:
+    container_name: support-frontend
+    build: ./frontend
+    depends_on:
+      - app
+    ports:
+      - "8501:8501"
+    environment:
+      SUPPORT_API_URL: http://app:8000
+
+volumes:
+  pgdata:

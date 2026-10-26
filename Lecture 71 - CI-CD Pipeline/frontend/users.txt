@@ -1,0 +1,13 @@
+Customer
+customer@example.com
+support-demo
+
+
+Reviewer
+reviewer@example.com
+support-demo
+
+
+Admin
+admin@example.com
+support-demo

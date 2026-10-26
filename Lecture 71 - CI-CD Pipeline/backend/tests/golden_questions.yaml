@@ -1,0 +1,44 @@
+questions:
+  - question: Can I return boots I wore once?
+    sources: [returns_policy.md]
+  - question: How long does a refund take to show up?
+    sources: [refund_policy.md]
+  - question: My tent pole snapped after a year, am I covered?
+    sources: [warranty.md]
+  - question: Do you ship to a PO box?
+    sources: [shipping_policy.md]
+  - question: The zipper on my jacket was broken when it arrived. What happens now?
+    sources: [damaged_or_defective.md]
+  - question: Can I return a clearance item because it does not fit?
+    sources: [final_sale_items.md]
+  - question: How do I wash my waterproof jacket?
+    sources: [product_care_faq.md]
+  - question: What does the shipped status mean?
+    sources: [order_status_faq.md]
+  - question: What are your support hours?
+    sources: [contact_and_escalation.md]
+  - question: Do I get the original shipping fee back on a normal return?
+    sources: [returns_policy.md, refund_policy.md, shipping_policy.md]
+  - question: How many years of warranty do backpacks have?
+    sources: [warranty.md]
+  - question: Can my refund go to a different card?
+    sources: [refund_policy.md]
+  - question: The tracking says delivered but I cannot find my package.
+    sources: [shipping_policy.md, order_status_faq.md]
+  - question: How should I store my tent after a rainy trip?
+    sources: [product_care_faq.md]
+  - question: Can I cancel an order that has not shipped yet?
+    sources: [order_status_faq.md]
+  - question: I want to talk to a real person.
+    sources: [contact_and_escalation.md]
+  - question: My order arrived 35 days ago. Can I still return it?
+    sources: [returns_policy.md, damaged_or_defective.md]
+  - question: Can I get a replacement instead of a refund for a broken item?
+    sources: [damaged_or_defective.md]
+
+out_of_scope:
+  - What is the capital of France?
+  - Do you sell gift cards?
+  - Which hiking trails are best in Colorado in October?
+  - Can I pay with Bitcoin?
+  - How do I reset my website password?

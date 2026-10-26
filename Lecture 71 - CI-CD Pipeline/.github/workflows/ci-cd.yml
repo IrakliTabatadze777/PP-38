@@ -1,0 +1,73 @@
+name: CI/CD
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: pgvector/pgvector:pg18
+        env:
+          POSTGRES_USER: support
+          POSTGRES_PASSWORD: 123123
+          POSTGRES_DB: support
+        ports:
+          - 5432:5432
+        options: --health-cmd "pg_isready -U support -d support" --health-interval 5s --health-retries 10
+
+    env:
+      DATABASE_URL: postgresql+psycopg://support:123123@localhost:5432/support
+      CHECKPOINT_DB_URL: postgresql://support:123123@localhost:5432/support
+
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.14"
+          cache: pip
+      - run: pip install -r backend/requirements.txt -r frontend/requirements.txt
+
+      - name: Backend
+        working-directory: backend
+        run: |
+          ruff check .
+          ruff format --check .
+          psql "postgresql://support:123123@localhost:5432/support" -f ../docker/initdb/01-init.sql
+#          pytest
+
+      - name: Frontend
+        working-directory: frontend
+        run: |
+          ruff check .
+          ruff format --check .
+#          pytest
+
+
+  deploy:
+    needs: test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment: production
+    env:
+      SERVER: ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }}
+
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_deploy
+          chmod 600 ~/.ssh/id_deploy
+          printf 'Host *\n  IdentityFile ~/.ssh/id_deploy\n' > ~/.ssh/config
+          ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
+
+      - run: ssh -vT "ubuntu@3.120.174.255" 'echo ok'
+      - name: Copy the code to the server
+        run: rsync -az --delete --exclude .git --exclude .env ./ "$SERVER:~/customer-support-agent/"
+
+      - name: Build and start the new version
+        run: |
+          ssh "$SERVER" "cd ~/customer-support-agent/ \
+          && docker compose up -d --build" \

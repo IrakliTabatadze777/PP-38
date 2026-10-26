@@ -1,0 +1,5 @@
+CREATE EXTENSION IF NOT EXISTS vector;
+
+CREATE DATABASE support_test;
+\connect support_test
+CREATE EXTENSION IF NOT EXISTS vector;
